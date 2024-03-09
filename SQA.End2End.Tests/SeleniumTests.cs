@@ -22,6 +22,19 @@ namespace SQA.End2End.Tests
         }
 
         [Test]
+        public void ClickingTodaysDateInPicker_ShouldDisplayCurrentDateText()
+        {
+            driver.FindElement(By.CssSelector(".tree-branch:nth-child(2) > .tree-indicator")).Click();
+            driver.FindElement(By.LinkText("Bootstrap Date Picker")).Click();
+            driver.FindElement(By.CssSelector(".glyphicon-th")).Click();
+            driver.FindElement(By.CssSelector(".datepicker-days tfoot .today")).Click();
+            
+            var actual = driver.FindElement(By.CssSelector("#sandbox-container1 > div > input")).GetAttribute("value");
+
+            Assert.That(actual, Is.EqualTo(DateTime.Now.ToString("dd/MM/yyyy")));
+        }
+
+        [Test]
         public void SubmitInputText_ShouldDisplayTextBelow()
         {
             const string ExpectedMessage = "hola mundo SDQ";
